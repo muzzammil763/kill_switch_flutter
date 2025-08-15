@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,16 +39,16 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
           _killSwitchEnabled = newState;
           _isLoading = false;
         });
-        
-        // Show dialog when kill switch becomes true
+
+        // Show Dialog When Kill Switch Becomes True
         if (newState && !_showingDialog) {
           _showingDialog = true;
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _showConfirmationDialog();
           });
         }
-        
-        // Hide dialog when kill switch becomes false
+
+        // Hide Dialog When Kill Switch Becomes False
         if (!newState && _showingDialog) {
           _showingDialog = false;
           if (mounted) {
@@ -65,7 +66,7 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
 
   Future<void> _showConfirmationDialog() async {
     if (!mounted) return;
-    
+
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -73,12 +74,12 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
     );
 
     _showingDialog = false;
-    
+
     if (result == true) {
-      // User confirmed, keep the kill switch enabled
-      // The state is already true from the database
+      // User Confirmed, Keep The Kill Switch Enabled
+      // The State Is Already True From The Database
     } else {
-      // User cancelled, disable the kill switch
+      // User Cancelled, Disable The Kill Switch
       await _firebaseService.setKillSwitchState(false);
     }
   }
@@ -87,7 +88,7 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
     try {
       bool newState = !_killSwitchEnabled;
       await _firebaseService.setKillSwitchState(newState);
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -111,7 +112,7 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
   }
 
   Widget _buildCustomLoading() {
-    return Container(
+    return SizedBox(
       width: 40,
       height: 40,
       child: CircularProgressIndicator(
@@ -136,7 +137,6 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Kill Switch Title
                     const Text(
                       'KILL SWITCH',
                       style: TextStyle(
@@ -147,17 +147,14 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-
                     const SizedBox(height: 80),
-
-                    // Cupertino Switch - Larger
                     Transform.scale(
                       scale: 3.5,
                       child: CupertinoSwitch(
                         value: _killSwitchEnabled,
                         onChanged: (value) {
                           if (value) {
-                            // When user tries to enable, the database listener will handle showing the dialog
+                            // When User Tries To Enable, The Database Listener Will Handle Showing The Dialog
                             _firebaseService.setKillSwitchState(true);
                           } else {
                             _toggleKillSwitch();
@@ -165,7 +162,6 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
                         },
                       ),
                     ),
-
                     const SizedBox(height: 80),
                   ],
                 ),

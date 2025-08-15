@@ -7,7 +7,7 @@ class FirebaseService {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// Get the current kill switch state from Firestore
+  /// Get The Current Kill Switch State From Firestore
   Future<bool> getKillSwitchState() async {
     try {
       final docRef = _firestore.doc(_collectionPath);
@@ -17,16 +17,16 @@ class FirebaseService {
         final data = docSnapshot.data();
         return data?[_fieldName] ?? false;
       } else {
-        // Document doesn't exist, create it with default value false
+        // Document Doesn't Exist, Create It With Default Value False
         await docRef.set({_fieldName: false});
         return false;
       }
     } catch (e) {
-      throw Exception('Failed to get kill switch state: $e');
+      throw Exception('Failed To Get Kill Switch State: $e');
     }
   }
 
-  /// Set the kill switch state in Firestore
+  /// Set The Kill Switch State In Firestore
   Future<void> setKillSwitchState(bool enabled) async {
     try {
       final docRef = _firestore.doc(_collectionPath);
@@ -35,11 +35,11 @@ class FirebaseService {
         'lastUpdated': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
     } catch (e) {
-      throw Exception('Failed to set kill switch state: $e');
+      throw Exception('Failed To Set Kill Switch State: $e');
     }
   }
 
-  /// Listen to kill switch state changes
+  /// Listen To Kill Switch State Changes
   Stream<bool> listenToKillSwitchState() {
     return _firestore.doc(_collectionPath).snapshots().map((snapshot) {
       if (snapshot.exists) {

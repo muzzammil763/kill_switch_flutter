@@ -15,12 +15,11 @@ class ConfirmationDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Warning Icon
             Container(
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.2),
+                color: Colors.red.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -29,10 +28,7 @@ class ConfirmationDialog extends StatelessWidget {
                 size: 32,
               ),
             ),
-
             const SizedBox(height: 24),
-
-            // Title
             const Text(
               'Warning',
               style: TextStyle(
@@ -41,10 +37,7 @@ class ConfirmationDialog extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 16),
-
-            // Warning Message
             const Text(
               'Please confirm that you know what you are doing.\nThis action will enable the kill switch.',
               style: TextStyle(
@@ -54,10 +47,7 @@ class ConfirmationDialog extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-
             const SizedBox(height: 32),
-
-            // Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -74,8 +64,6 @@ class ConfirmationDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Confirm Button
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);

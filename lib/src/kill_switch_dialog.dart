@@ -28,7 +28,6 @@ class KillSwitchDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Lock Icon
             Container(
               width: 80,
               height: 80,
@@ -42,10 +41,7 @@ class KillSwitchDialog extends StatelessWidget {
                 size: 40,
               ),
             ),
-
             const SizedBox(height: 24),
-
-            // Kill Switch Title
             const Text(
               'Currently Unavailable',
               style: TextStyle(
@@ -55,14 +51,11 @@ class KillSwitchDialog extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-
             const SizedBox(height: 16),
-
-            // Description Text
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Please try again later or contact support for assistance.',
+                'Please Try Again Later Or Contact Support For Assistance.',
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: 16,
@@ -71,10 +64,7 @@ class KillSwitchDialog extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-
             const SizedBox(height: 32),
-
-            // Close App Button
             SizedBox(
               width: double.infinity,
               height: 50,

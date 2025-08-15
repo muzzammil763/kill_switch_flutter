@@ -4,7 +4,7 @@
 
 [//]: # ([![License: MIT]&#40;https://img.shields.io/badge/License-MIT-yellow.svg&#41;]&#40;https://opensource.org/licenses/MIT&#41;)
 
-A Flutter package that provides a **kill switch** functionality for your app using Firebase Firestore. This package allows app owners to remotely disable their app for users with a sleek, professional interface.
+A Flutter Package That Provides A **kill Switch** Functionality For Your App Using Firebase Firestore. This Package Allows App Owners To Remotely Disable Their App For Users With A Sleek, Professional Interface.
 
 ## ✨ Features
 
@@ -267,7 +267,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Muzamil Ghafoor**
 
-- GitHub: [@muzamilghafoor](https://github.com/muzzammil763)
+- GitHub: [@muzzammil763](https://github.com/muzzammil763)
 - Email: deadbase763@gmail.com
 
 ## 🙏 Acknowledgments
