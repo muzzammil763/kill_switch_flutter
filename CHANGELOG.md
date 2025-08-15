@@ -1,4 +1,26 @@
-## 0.0.2
+## 1.0.0
+
+### 🎉 Stable Release
+* **Production Ready**: First stable release with comprehensive testing and documentation
+* **Security Enhanced**: Removed sensitive Firebase credentials from example app
+* **Modern Flutter Support**: Updated to use PopScope instead of deprecated WillPopScope
+* **Complete Package**: Full-featured kill switch solution ready for production use
+
+### 🔧 Final Improvements
+* **Firebase Security**: Replaced real API keys with placeholders in example app
+* **Deprecation Fixes**: Updated to PopScope for Flutter compatibility
+* **Example App Polish**: Improved text formatting and spacing consistency
+* **Documentation Complete**: Comprehensive README and API documentation
+
+### 📦 What's Included
+* **Kill Switch Core**: Robust Firebase Firestore-based kill switch functionality
+* **Admin Interface**: Professional dark-themed admin panel for kill switch control
+* **Real-time Sync**: Instant dialog show/hide across all devices without restart
+* **Complete Example**: Full demo app showing proper implementation
+* **Security Features**: Confirmation system and secure Firebase integration
+* **Cross-Platform**: Works seamlessly on iOS and Android
+
+## 0.0.3
 
 ### 🚀 New Features
 * **Instant Dialog Management**: Dialogs now appear and disappear instantly without requiring app restart

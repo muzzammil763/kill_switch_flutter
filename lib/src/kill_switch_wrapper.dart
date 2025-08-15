@@ -101,8 +101,8 @@ class KillSwitchWrapperState extends State<KillSwitchWrapper> {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) => WillPopScope(
-            onWillPop: () async => false,
+          builder: (context) => PopScope(
+            canPop: false,
             child: KillSwitchDialog(
               onClose: () {
                 SystemNavigator.pop();

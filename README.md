@@ -1,10 +1,27 @@
 # Kill Switch
 
-[//]: # ([![pub package]&#40;https://img.shields.io/pub/v/flutter_kill_switch.svg&#41;]&#40;https://pub.dev/packages/flutter_kill_switch&#41;)
+[![pub package](https://img.shields.io/pub/v/kill_switch_flutter.svg)](https://pub.dev/packages/kill_switch_flutter)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[//]: # ([![License: MIT]&#40;https://img.shields.io/badge/License-MIT-yellow.svg&#41;]&#40;https://opensource.org/licenses/MIT&#41;)
-
-A Flutter Package That Provides A **kill Switch** Functionality For Your App Using Firebase Firestore. This Package Allows App Owners To Remotely Disable Their App For Users With A Sleek, Professional Interface.
+<div align="center">
+  <table>
+    <tr>
+      <td width="60%" valign="top">
+        <h3>🎛️ Professional Kill Switch Solution</h3>
+        <p>A Flutter Package That Provides A <strong>Kill Switch</strong> Functionality For Your App Using Firebase Firestore. This Package Allows App Owners To Remotely Disable Their App For Users With A Sleek, Professional Interface.</p>
+        <br>
+        <p>✨ <strong>Real-time synchronization</strong> across all devices</p>
+        <p>🔒 <strong>Secure confirmation system</strong> prevents accidents</p>
+        <p>🎨 <strong>Modern dark UI</strong> with professional design</p>
+        <p>📱 <strong>Cross-platform support</strong> for iOS & Android</p>
+        <p>⚡ <strong>Instant response</strong> without app restart</p>
+      </td>
+      <td width="40%" align="center" valign="middle">
+        <img src="Images/Package Image.png" alt="Kill Switch Flutter Package" width="280"/>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## ✨ Features
 
@@ -405,22 +422,24 @@ const KillSwitchWrapper({
 
 ## 📊 Changelog
 
-### [0.0.2] - 2025-01-XX
-- **NEW**: Instant dialog showing/hiding without app restart
-- **NEW**: Comprehensive API documentation with Flutter-style comments
-- **NEW**: Complete example app with proper implementation guide
-- **IMPROVED**: Kill switch only updates database after user confirmation
-- **IMPROVED**: Enhanced UI design with better spacing and typography
-- **IMPROVED**: Replaced SnackBar notifications with debug prints
-- **FIXED**: Real-time dialog management race conditions
-- **FIXED**: Dialog hiding logic for better state management
+### [1.0.0] - 2025-01-XX
+- **🎉 STABLE RELEASE**: Production-ready kill switch solution
+- **🔒 SECURITY**: Removed sensitive Firebase credentials from example
+- **📱 MODERN**: Updated to PopScope for latest Flutter compatibility
+- **📚 COMPLETE**: Comprehensive documentation and example app
+- **✨ INSTANT**: Real-time dialog management without app restart
+- **🎨 ENHANCED**: Professional UI design with improved spacing
+- **🔧 IMPROVED**: Confirmation-first logic and debug-friendly logging
+
+### [0.0.3] - 2024-12-XX
+- Enhanced dialog management and API documentation
+- Complete example app with KillSwitchWrapper implementation
+- Improved real-time state management and UI design
 
 ### [0.0.1] - 2024-12-XX
-- Initial release
-- Kill switch functionality
-- Firebase integration
-- Custom confirmation system
-- App blocking feature
+- Initial release with core kill switch functionality
+- Firebase Firestore integration and custom confirmation system
+- Professional dark theme UI and cross-platform support
 
 ---
 
