@@ -51,14 +51,14 @@ dependencies:
 Add this to your package's `pubspec.yaml` file:
 
 ```bash
-flutter pub add kill_switch
+flutter pub add kill_switch_flutter
 ```
 
 Or manually add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  kill_switch: ^1.0.0
+  kill_switch_flutter: ^0.0.3
 ```
 
 Then run:
@@ -72,7 +72,7 @@ flutter pub get
 ### Step 1: Import the Package
 
 ```dart
-import 'package:kill_switch/kill_switch.dart';
+import 'package:kill_switch_flutter/kill_switch_flutter.dart';
 ```
 
 ### Step 2: Wrap Your Main App
@@ -113,7 +113,7 @@ Navigator.push(
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kill_switch_flutter/kill_switch.dart';
+import 'package:kill_switch_flutter/kill_switch_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

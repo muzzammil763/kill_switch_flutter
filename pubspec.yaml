@@ -1,9 +1,9 @@
 name: kill_switch_flutter
 description: A Flutter Package That Provides A Kill Switch Functionality For Apps Using Firebase Firestore
-version: 0.0.3
-homepage: https://github.com/muzzammil763/kill_switch
-repository: https://github.com/muzzammil763/kill_switch
-issue_tracker: https://github.com/muzzammil763/kill_switch/issues
+version: 0.0.4
+homepage: https://github.com/muzzammil763/kill_switch_flutter
+repository: https://github.com/muzzammil763/kill_switch_flutter
+issue_tracker: https://github.com/muzzammil763/kill_switch_flutter/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
