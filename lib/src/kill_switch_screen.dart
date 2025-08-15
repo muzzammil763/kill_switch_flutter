@@ -6,7 +6,55 @@ import 'package:flutter/material.dart';
 import 'confirmation_dialog.dart';
 import 'firebase_service.dart';
 
+/// A Flutter widget that provides an admin interface for controlling
+/// the kill switch functionality of your application.
+///
+/// This widget displays a toggle switch that allows administrators to
+/// enable or disable the kill switch state, which is synchronized with
+/// Firebase Firestore in real-time.
+///
+/// ## Features
+///
+/// * **Real-time synchronization**: Changes are instantly reflected across all app instances
+/// * **Confirmation dialog**: Prevents accidental enabling with a confirmation step
+/// * **Dark theme design**: Matches modern app aesthetics
+/// * **Responsive UI**: Adapts to different screen sizes
+/// * **Error handling**: Gracefully handles network and Firebase errors
+///
+/// ## Usage
+///
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const FlutterKillSwitch(),
+///   ),
+/// );
+/// ```
+///
+/// ## Firebase Configuration
+///
+/// Ensure your Firebase project is configured with Firestore and the
+/// necessary security rules are in place. The widget uses a specific
+/// collection path for storing the kill switch state.
+///
+/// ## State Management
+///
+/// The widget maintains the following internal states:
+/// * `_killSwitchEnabled`: Current state of the kill switch
+/// * `_isLoading`: Whether the widget is loading the initial state
+/// * `_showingDialog`: Whether the confirmation dialog is currently displayed
+///
+/// See also:
+///
+/// * [KillSwitchWrapper], which wraps your app to show blocking dialogs
+/// * [KillSwitchDialog], the dialog shown to end users when kill switch is active
+/// * [FirebaseService], the service that handles Firestore operations
 class FlutterKillSwitch extends StatefulWidget {
+  /// Creates a kill switch admin interface.
+  ///
+  /// This widget should typically be used in admin or settings screens
+  /// where authorized users can control the kill switch functionality.
   const FlutterKillSwitch({super.key});
 
   @override
@@ -40,19 +88,11 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
           _isLoading = false;
         });
 
-        // Show Dialog When Kill Switch Becomes True
-        if (newState && !_showingDialog) {
-          _showingDialog = true;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _showConfirmationDialog();
-          });
-        }
-
         // Hide Dialog When Kill Switch Becomes False
         if (!newState && _showingDialog) {
-          _showingDialog = false;
-          if (mounted) {
+          if (mounted && Navigator.canPop(context)) {
             Navigator.of(context).pop();
+            _showingDialog = false;
           }
         }
       },
@@ -67,6 +107,7 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
   Future<void> _showConfirmationDialog() async {
     if (!mounted) return;
 
+    _showingDialog = true;
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -76,38 +117,23 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
     _showingDialog = false;
 
     if (result == true) {
-      // User Confirmed, Keep The Kill Switch Enabled
-      // The State Is Already True From The Database
+      // User confirmed - set to true
+      await _setKillSwitchState(true);
     } else {
-      // User Cancelled, Disable The Kill Switch
-      await _firebaseService.setKillSwitchState(false);
+      // User cancelled - ensure it's false (this will trigger listener to hide dialog)
+      await _setKillSwitchState(false);
     }
   }
 
-  Future<void> _toggleKillSwitch() async {
+  Future<void> _setKillSwitchState(bool desiredState) async {
     try {
-      bool newState = !_killSwitchEnabled;
-      await _firebaseService.setKillSwitchState(newState);
+      await _firebaseService.setKillSwitchState(desiredState);
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(_killSwitchEnabled
-                ? 'Kill Switch Enabled Successfully'
-                : 'Kill Switch Disabled Successfully'),
-            backgroundColor: _killSwitchEnabled ? Colors.red : Colors.green,
-          ),
-        );
-      }
+      debugPrint(desiredState
+          ? 'Kill Switch Enabled Successfully'
+          : 'Kill Switch Disabled Successfully');
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
+      debugPrint('Error: ${e.toString()}');
     }
   }
 
@@ -137,32 +163,32 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Spacer(),
                     const Text(
                       'KILL SWITCH',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
+                        fontSize: 30,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 48),
                     Transform.scale(
-                      scale: 3.5,
+                      scale: 3,
                       child: CupertinoSwitch(
                         value: _killSwitchEnabled,
                         onChanged: (value) {
                           if (value) {
-                            // When User Tries To Enable, The Database Listener Will Handle Showing The Dialog
-                            _firebaseService.setKillSwitchState(true);
+                            // Ask Confirmation First, Only Then Set TRUE
+                            _showConfirmationDialog();
                           } else {
-                            _toggleKillSwitch();
+                            // Disable immediately
+                            _setKillSwitchState(false);
                           }
                         },
                       ),
                     ),
-                    const SizedBox(height: 80),
+                    Spacer(),
                   ],
                 ),
               ),

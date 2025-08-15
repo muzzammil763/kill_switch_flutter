@@ -9,11 +9,13 @@ A Flutter Package That Provides A **kill Switch** Functionality For Your App Usi
 ## ✨ Features
 
 - 🎛️ **Professional Kill Switch UI** - Dark themed interface with large Cupertino-style switch
-- 🔐 **Secure Confirmation System** - Custom keyboard with "IWANNAENABLE" confirmation
 - 🔥 **Firebase Integration** - Real-time monitoring using Cloud Firestore
 - 🚫 **Non-Dismissible App Blocking** - Complete app blocking when kill switch is active
 - 📱 **Cross-Platform Support** - Works on both iOS and Android
-- ⚡ **Real-time Updates** - Instant kill switch activation across all user devices
+- ⚡ **Real-time Updates** - Instant kill switch activation/deactivation across all user devices
+- 🎯 **Instant Dialog Management** - Dialogs appear and disappear instantly without app restart
+- 📱 **Example App Included** - Complete demo app showing proper implementation
+- 📚 **Comprehensive Documentation** - Full API documentation with Flutter-style comments
 
 ## 📋 Prerequisites
 
@@ -108,51 +110,117 @@ Navigator.push(
 ### Complete Example
 
 ```dart
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:kill_switch/kill_switch.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kill_switch_flutter/kill_switch.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
+      debugShowCheckedModeBanner: false,
+      title: 'Kill Switch Demo',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF2C2C2E),
+        colorScheme: const ColorScheme.dark(
+          primary: Colors.red,
+          secondary: Colors.white,
+          surface: Color(0xFF2C2C2E),
+        ),
+      ),
       home: KillSwitchWrapper(
-        child: MainScreen(),
+        child: MainDemoScreen(),
       ),
     );
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainDemoScreen extends StatelessWidget {
+  const MainDemoScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My App')),
+      backgroundColor: const Color(0xFF2C2C2E),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Welcome to My App', style: TextStyle(fontSize: 24)),
-            SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FlutterKillSwitch(),
+        child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              const Text(
+                'KILL SWITCH DEMO',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                'This screen demonstrates the Kill Switch functionality.\n\nWhen enabled, a dialog will appear instantly.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 16,
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 60),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FlutterKillSwitch(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 0,
                   ),
-                );
-              },
-              child: Text('Admin Panel'),
-            ),
-          ],
+                  child: const Text(
+                    'Admin Panel - Toggle Kill Switch',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Try enabling the kill switch in Admin Panel\nand return here to see the dialog.',
+                style: TextStyle(
+                  color: Colors.white60,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );
@@ -160,18 +228,40 @@ class MainScreen extends StatelessWidget {
 }
 ```
 
+## 🎮 Running the Example
+
+The package includes a complete example app. To run it:
+
+```bash
+cd example
+flutter pub get
+flutter run
+```
+
+The example demonstrates:
+- Proper `KillSwitchWrapper` implementation
+- Navigation to admin panel
+- Real-time dialog showing/hiding
+- Modern dark theme design
+
 ## 🔧 How It Works
 
 ### Kill Switch Activation Process
 
 1. **Admin navigates** to kill switch screen
 2. **Toggle switch** to enable kill switch
-3. **Confirmation dialog** appears with custom keyboard
-4. **Type "IWANNAENABLE"** to confirm action
-5. **Kill switch activates** and updates Firebase
+3. **Confirmation dialog** to confirm what you are doing
+5. **Kill switch activates** and updates Firebase **only after confirmation**
 6. **All user devices** receive the update instantly
-7. **App blocking dialog** appears for all users
+7. **App blocking dialog** appears for all users immediately
 8. **Users must close** the app
+
+### Real-time Dialog Management
+
+- **Instant Show**: Dialog appears immediately when kill switch becomes `true`
+- **Instant Hide**: Dialog disappears immediately when kill switch becomes `false`
+- **No Restart Required**: All changes happen in real-time without app restart
+- **Cross-device Sync**: Changes sync instantly across all devices
 
 ### Firebase Firestore Structure
 
@@ -276,9 +366,56 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Firebase team for the backend services
 - Open source community for inspiration
 
+## 📚 API Documentation
+
+### FlutterKillSwitch Widget
+
+The main admin interface for controlling the kill switch.
+
+```dart
+const FlutterKillSwitch({Key? key})
+```
+
+**Features:**
+- Real-time Firebase Firestore synchronization
+- Confirmation dialog with custom keyboard
+- Dark theme design with improved layout
+- Error handling with debug prints
+- Responsive UI design
+
+### KillSwitchWrapper Widget
+
+Wraps your app to monitor kill switch state and show blocking dialogs.
+
+```dart
+const KillSwitchWrapper({
+  Key? key,
+  required Widget child,
+})
+```
+
+**Parameters:**
+- `child` (required): The widget to display when kill switch is inactive
+
+**Features:**
+- Real-time Firestore monitoring
+- Instant dialog show/hide without app restart
+- Non-dismissible blocking dialog
+- Automatic app termination functionality
+
 ## 📊 Changelog
 
-### [1.0.0] - 2025-01-XX
+### [0.0.2] - 2025-01-XX
+- **NEW**: Instant dialog showing/hiding without app restart
+- **NEW**: Comprehensive API documentation with Flutter-style comments
+- **NEW**: Complete example app with proper implementation guide
+- **IMPROVED**: Kill switch only updates database after user confirmation
+- **IMPROVED**: Enhanced UI design with better spacing and typography
+- **IMPROVED**: Replaced SnackBar notifications with debug prints
+- **FIXED**: Real-time dialog management race conditions
+- **FIXED**: Dialog hiding logic for better state management
+
+### [0.0.1] - 2024-12-XX
 - Initial release
 - Kill switch functionality
 - Firebase integration

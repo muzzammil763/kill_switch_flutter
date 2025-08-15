@@ -1,4 +1,4 @@
-package com.example.kill_switch_example
+package com.kill_switch_flutter.example
 
 import io.flutter.embedding.android.FlutterActivity
 
