@@ -1,15 +1,3 @@
-<div align="center">
-  <h2>🔥 Package Ownership Available for Purchase</h2>
-  <p><strong>Interested in owning this professional Flutter package?</strong></p>
-  <a href="https://deadbase.gumroad.com/l/muzzammil763" target="_blank">
-    <img src="https://img.shields.io/badge/Buy%20Ownership-Gumroad-FF6B6B?style=for-the-badge&logo=gumroad&logoColor=white" alt="Buy Package Ownership on Gumroad"/>
-  </a>
-  <br><br>
-  <em>Get full ownership rights, source code, and commercial licensing</em>
-</div>
-
----
-
 # Kill Switch
 
 [![pub package](https://img.shields.io/pub/v/kill_switch_flutter.svg)](https://pub.dev/packages/kill_switch_flutter)
@@ -88,7 +76,7 @@ Or manually add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  kill_switch_flutter: ^1.0.1
+  kill_switch_flutter: ^1.0.2
 ```
 
 Then run:
@@ -583,28 +571,6 @@ const KillSwitchWrapper({
 - Instant dialog show/hide without app restart
 - Non-dismissible blocking dialog
 - Automatic app termination functionality
-
-## 📊 Changelog
-
-### [1.0.0] - 2025-01-XX
-- **🎉 STABLE RELEASE**: Production-ready kill switch solution
-- **🔒 SECURITY**: Removed sensitive Firebase credentials from example
-- **📱 MODERN**: Updated to PopScope for latest Flutter compatibility
-- **📚 COMPLETE**: Comprehensive documentation and example app
-- **✨ INSTANT**: Real-time dialog management without app restart
-- **🎨 ENHANCED**: Professional UI design with improved spacing
-- **🔧 IMPROVED**: Confirmation-first logic and debug-friendly logging
-
-### [0.0.3] - 2024-12-XX
-- Enhanced dialog management and API documentation
-- Complete example app with KillSwitchWrapper implementation
-- Improved real-time state management and UI design
-
-### [0.0.1] - 2024-12-XX
-- Initial release with core kill switch functionality
-- Firebase Firestore integration and custom confirmation system
-- Professional dark theme UI and cross-platform support
-
 ---
 
 Made with ❤️ by [Muzamil Ghafoor](https://github.com/muzzammil763)

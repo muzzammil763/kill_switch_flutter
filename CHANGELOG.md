@@ -1,3 +1,7 @@
+## 1.0.2
+
+### 🎉 Fixes & Improvements
+
 ## 1.0.1
 
 ### 🎨 Custom Themes & UI Enhancements
