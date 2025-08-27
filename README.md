@@ -1,8 +1,4 @@
 <div align="center">
-  <img src="banner.svg" alt="Kill Switch Flutter Package Banner" width="100%"/>
-</div>
-
-<div align="center">
   <h2>🔥 Package Ownership Available for Purchase</h2>
   <p><strong>Interested in owning this professional Flutter package?</strong></p>
   <a href="https://deadbase.gumroad.com/l/muzzammil763" target="_blank">
