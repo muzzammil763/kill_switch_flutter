@@ -59,9 +59,9 @@ Add these to your app's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  firebase_core: ^2.17.0
-  cloud_firestore: ^4.13.0
-  flutter_kill_switch: ^1.0.0
+  firebase_core: any
+  cloud_firestore: any
+  flutter_kill_switch: any
 ```
 
 ## 🚀 Installation
@@ -76,7 +76,7 @@ Or manually add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  kill_switch_flutter: ^1.0.2
+  kill_switch_flutter: ^1.0.3
 ```
 
 Then run:
