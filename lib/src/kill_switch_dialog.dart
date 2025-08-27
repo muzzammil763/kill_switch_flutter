@@ -1,27 +1,47 @@
 import 'package:flutter/material.dart';
+import 'kill_switch_theme.dart';
 
 class KillSwitchDialog extends StatelessWidget {
   final VoidCallback onClose;
+  final KillSwitchTheme? theme;
+  final String? title;
+  final String? message;
+  final String? buttonText;
 
   const KillSwitchDialog({
     super.key,
     required this.onClose,
+    this.theme,
+    this.title,
+    this.message,
+    this.buttonText,
   });
 
   @override
   Widget build(BuildContext context) {
+    final effectiveTheme = theme ?? KillSwitchTheme.auto(context);
+
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        padding: const EdgeInsets.all(24),
+        padding: effectiveTheme.dialogPadding ?? const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          color: effectiveTheme.backgroundColor ?? Colors.white,
+          borderRadius:
+              BorderRadius.circular(effectiveTheme.borderRadius ?? 16),
+          border: effectiveTheme.borderWidth != null &&
+                  effectiveTheme.borderWidth! > 0
+              ? Border.all(
+                  color: effectiveTheme.borderColor ?? Colors.transparent,
+                  width: effectiveTheme.borderWidth!,
+                )
+              : null,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
-              blurRadius: 20,
-              spreadRadius: 5,
+              color: effectiveTheme.shadowColor ??
+                  Colors.black.withValues(alpha: 0.3),
+              blurRadius: effectiveTheme.shadowBlurRadius ?? 20,
+              spreadRadius: effectiveTheme.shadowSpreadRadius ?? 5,
             ),
           ],
         ),
@@ -32,35 +52,28 @@ class KillSwitchDialog extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: effectiveTheme.primaryColor ?? Colors.red,
                 borderRadius: BorderRadius.circular(40),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.lock,
-                color: Colors.white,
-                size: 40,
+                color: effectiveTheme.buttonTextColor ?? Colors.white,
+                size: effectiveTheme.iconSize ?? 40,
               ),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'Currently Unavailable',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            Text(
+              title ?? 'Currently Unavailable',
+              style: effectiveTheme.getEffectiveTitleTextStyle(),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Please Try Again Later Or Contact Support For Assistance.',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 16,
-                  height: 1.4,
-                ),
+                message ??
+                    'Please Try Again Later Or Contact Support For Assistance.',
+                style: effectiveTheme.getEffectiveBodyTextStyle(),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -71,19 +84,19 @@ class KillSwitchDialog extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onClose,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
+                  backgroundColor:
+                      effectiveTheme.buttonBackgroundColor ?? Colors.red,
+                  foregroundColor:
+                      effectiveTheme.buttonTextColor ?? Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(
+                        effectiveTheme.buttonBorderRadius ?? 8),
                   ),
                   elevation: 0,
                 ),
-                child: const Text(
-                  'Close App',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
+                child: Text(
+                  buttonText ?? 'Close App',
+                  style: effectiveTheme.getEffectiveButtonTextStyle(),
                 ),
               ),
             ),

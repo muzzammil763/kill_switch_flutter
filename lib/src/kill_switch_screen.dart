@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'confirmation_dialog.dart';
 import 'firebase_service.dart';
+import 'kill_switch_theme.dart';
 
 /// A Flutter widget that provides an admin interface for controlling
 /// the kill switch functionality of your application.
@@ -51,11 +52,33 @@ import 'firebase_service.dart';
 /// * [KillSwitchDialog], the dialog shown to end users when kill switch is active
 /// * [FirebaseService], the service that handles Firestore operations
 class FlutterKillSwitch extends StatefulWidget {
+  /// Optional theme configuration for the confirmation dialog.
+  final KillSwitchTheme? theme;
+
+  /// Optional custom title for the confirmation dialog.
+  final String? confirmationTitle;
+
+  /// Optional custom message for the confirmation dialog.
+  final String? confirmationMessage;
+
+  /// Optional custom confirm button text.
+  final String? confirmButtonText;
+
+  /// Optional custom cancel button text.
+  final String? cancelButtonText;
+
   /// Creates a kill switch admin interface.
   ///
   /// This widget should typically be used in admin or settings screens
   /// where authorized users can control the kill switch functionality.
-  const FlutterKillSwitch({super.key});
+  const FlutterKillSwitch({
+    super.key,
+    this.theme,
+    this.confirmationTitle,
+    this.confirmationMessage,
+    this.confirmButtonText,
+    this.cancelButtonText,
+  });
 
   @override
   FlutterKillSwitchState createState() => FlutterKillSwitchState();
@@ -111,7 +134,13 @@ class FlutterKillSwitchState extends State<FlutterKillSwitch> {
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
-      builder: (context) => ConfirmationDialog(),
+      builder: (context) => ConfirmationDialog(
+        theme: widget.theme,
+        title: widget.confirmationTitle,
+        message: widget.confirmationMessage,
+        confirmButtonText: widget.confirmButtonText,
+        cancelButtonText: widget.cancelButtonText,
+      ),
     );
 
     _showingDialog = false;

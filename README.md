@@ -1,7 +1,24 @@
+<div align="center">
+  <img src="banner.svg" alt="Kill Switch Flutter Package Banner" width="100%"/>
+</div>
+
+<div align="center">
+  <h2>🔥 Package Ownership Available for Purchase</h2>
+  <p><strong>Interested in owning this professional Flutter package?</strong></p>
+  <a href="https://deadbase.gumroad.com/l/muzzammil763" target="_blank">
+    <img src="https://img.shields.io/badge/Buy%20Ownership-Gumroad-FF6B6B?style=for-the-badge&logo=gumroad&logoColor=white" alt="Buy Package Ownership on Gumroad"/>
+  </a>
+  <br><br>
+  <em>Get full ownership rights, source code, and commercial licensing</em>
+</div>
+
+---
+
 # Kill Switch
 
 [![pub package](https://img.shields.io/pub/v/kill_switch_flutter.svg)](https://pub.dev/packages/kill_switch_flutter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ownership Available](https://img.shields.io/badge/Ownership-Available%20on%20Gumroad-FF6B6B)](https://deadbase.gumroad.com/l/muzzammil763)
 
 <div align="center">
   <table>
@@ -75,7 +92,7 @@ Or manually add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  kill_switch_flutter: ^0.0.3
+  kill_switch_flutter: ^1.0.1
 ```
 
 Then run:
@@ -243,6 +260,157 @@ class MainDemoScreen extends StatelessWidget {
     );
   }
 }
+```
+
+## 🎨 Custom Themes
+
+**New in v1.0.1!** The Kill Switch package now supports comprehensive theming to match your app's design.
+
+### Basic Theme Usage
+
+```dart
+// Using built-in themes
+KillSwitchWrapper(
+  theme: KillSwitchTheme.dark(), // or .light()
+  child: YourMainScreen(),
+)
+
+// Auto theme (adapts to system)
+KillSwitchWrapper(
+  theme: KillSwitchTheme.auto(context),
+  child: YourMainScreen(),
+)
+```
+
+### Custom Theme Configuration
+
+Create your own theme with full control over colors, typography, and styling:
+
+```dart
+final customTheme = KillSwitchTheme(
+  // Colors
+  backgroundColor: Color(0xFF1A237E),
+  primaryColor: Color(0xFF3F51B5),
+  titleTextColor: Colors.white,
+  bodyTextColor: Color(0xFFE8EAF6),
+  buttonBackgroundColor: Color(0xFF3F51B5),
+  buttonTextColor: Colors.white,
+  
+  // Layout & Styling
+  borderRadius: 20.0,
+  buttonBorderRadius: 10.0,
+  iconSize: 45.0,
+  dialogPadding: EdgeInsets.all(28.0),
+  
+  // Shadows & Borders
+  shadowColor: Color(0x66000000),
+  shadowBlurRadius: 25.0,
+  shadowSpreadRadius: 8.0,
+  borderColor: Color(0xFF5C6BC0),
+  borderWidth: 2.0,
+  
+  // Typography
+  titleTextStyle: TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+  bodyTextStyle: TextStyle(
+    fontSize: 16,
+    color: Color(0xFFE8EAF6),
+  ),
+  buttonTextStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  ),
+);
+
+KillSwitchWrapper(
+  theme: customTheme,
+  title: 'Custom Title',
+  message: 'Custom maintenance message',
+  buttonText: 'Exit',
+  child: YourMainScreen(),
+)
+```
+
+### Theme Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `backgroundColor` | `Color?` | Dialog background color |
+| `primaryColor` | `Color?` | Icon and accent color |
+| `titleTextColor` | `Color?` | Title text color |
+| `bodyTextColor` | `Color?` | Body text color |
+| `buttonBackgroundColor` | `Color?` | Button background |
+| `buttonTextColor` | `Color?` | Button text color |
+| `borderRadius` | `double?` | Dialog corner radius |
+| `buttonBorderRadius` | `double?` | Button corner radius |
+| `shadowColor` | `Color?` | Dialog shadow color |
+| `shadowBlurRadius` | `double?` | Shadow blur amount |
+| `shadowSpreadRadius` | `double?` | Shadow spread amount |
+| `iconSize` | `double?` | Lock icon size |
+| `dialogPadding` | `EdgeInsets?` | Internal dialog padding |
+| `borderColor` | `Color?` | Dialog border color |
+| `borderWidth` | `double?` | Dialog border width |
+| `titleTextStyle` | `TextStyle?` | Custom title styling |
+| `bodyTextStyle` | `TextStyle?` | Custom body styling |
+| `buttonTextStyle` | `TextStyle?` | Custom button styling |
+
+### Admin Panel Theming
+
+The admin panel also supports theming for confirmation dialogs:
+
+```dart
+FlutterKillSwitch(
+  theme: customTheme,
+  confirmationTitle: 'Enable Kill Switch?',
+  confirmationMessage: 'This will block all users. Continue?',
+  confirmButtonText: 'Yes, Enable',
+  cancelButtonText: 'Cancel',
+)
+```
+
+### Built-in Theme Presets
+
+```dart
+// Light theme
+KillSwitchTheme.light()
+
+// Dark theme  
+KillSwitchTheme.dark()
+
+// Auto theme (system-based)
+KillSwitchTheme.auto(context)
+```
+
+### Theme Examples
+
+**Material Design Blue:**
+```dart
+final blueTheme = KillSwitchTheme(
+  backgroundColor: Color(0xFF1565C0),
+  primaryColor: Color(0xFF42A5F5),
+  titleTextColor: Colors.white,
+  bodyTextColor: Color(0xFFE3F2FD),
+  buttonBackgroundColor: Color(0xFF42A5F5),
+  borderRadius: 16.0,
+  iconSize: 40.0,
+);
+```
+
+**Elegant Green:**
+```dart
+final greenTheme = KillSwitchTheme(
+  backgroundColor: Color(0xFF2E7D32),
+  primaryColor: Color(0xFF66BB6A),
+  titleTextColor: Colors.white,
+  bodyTextColor: Color(0xFFE8F5E8),
+  buttonBackgroundColor: Color(0xFF66BB6A),
+  borderRadius: 12.0,
+  shadowBlurRadius: 15.0,
+);
 ```
 
 ## 🎮 Running the Example

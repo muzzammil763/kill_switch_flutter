@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'firebase_service.dart';
 import 'kill_switch_dialog.dart';
+import 'kill_switch_theme.dart';
 
 /// A wrapper widget that monitors the kill switch state and automatically
 /// displays a blocking dialog when the kill switch is activated.
@@ -54,6 +55,18 @@ class KillSwitchWrapper extends StatefulWidget {
   /// This is typically your main app content or home screen.
   final Widget child;
 
+  /// Optional theme configuration for the kill switch dialog.
+  final KillSwitchTheme? theme;
+
+  /// Optional custom title for the kill switch dialog.
+  final String? title;
+
+  /// Optional custom message for the kill switch dialog.
+  final String? message;
+
+  /// Optional custom button text for the kill switch dialog.
+  final String? buttonText;
+
   /// Creates a kill switch wrapper.
   ///
   /// The [child] parameter is required and represents the widget to display
@@ -61,6 +74,10 @@ class KillSwitchWrapper extends StatefulWidget {
   const KillSwitchWrapper({
     super.key,
     required this.child,
+    this.theme,
+    this.title,
+    this.message,
+    this.buttonText,
   });
 
   @override
@@ -107,6 +124,10 @@ class KillSwitchWrapperState extends State<KillSwitchWrapper> {
               onClose: () {
                 SystemNavigator.pop();
               },
+              theme: widget.theme,
+              title: widget.title,
+              message: widget.message,
+              buttonText: widget.buttonText,
             ),
           ),
         );

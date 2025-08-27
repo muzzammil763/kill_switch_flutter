@@ -1,5 +1,5 @@
-name: kill_switch_example
-description: "An Example Project For The Package kill_switch_flutter"
+name: kill_switch_example_mock
+description: "Mock Firebase Example for kill_switch_flutter Package - No Firebase Setup Required"
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -11,14 +11,18 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  firebase_core: any
+  firebase_core: any 
+  # Firebase dependencies removed for mock version
+  # firebase_core: any
+  
+  # We still need the package for UI components (dialogs, etc.)
   kill_switch_flutter:
     path: ..
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: any
 
 flutter:
   uses-material-design: true

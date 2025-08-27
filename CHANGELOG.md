@@ -1,3 +1,27 @@
+## 1.0.1
+
+### 🎨 Custom Themes & UI Enhancements
+* **Custom Theme Support**: Added comprehensive theming system with `KillSwitchTheme` class
+* **Dark Mode Support**: Automatic system theme detection with `KillSwitchTheme.auto()`
+* **Custom Color Schemes**: Full control over colors, typography, and visual styling
+* **Theme Presets**: Built-in light and dark theme presets with `KillSwitchTheme.light()` and `KillSwitchTheme.dark()`
+* **Customizable Messages**: Support for custom titles, messages, and button text in all dialogs
+* **Enhanced Dialogs**: Both `KillSwitchDialog` and `ConfirmationDialog` now support theming
+* **Flexible Typography**: Custom text styles for titles, body text, and buttons
+* **Border & Shadow Control**: Configurable borders, shadows, and corner radius
+* **Icon Customization**: Adjustable icon sizes and colors
+
+### 🔧 API Improvements
+* **Theme Integration**: All widgets (`KillSwitchWrapper`, `FlutterKillSwitch`) now accept theme parameters
+* **Backward Compatibility**: All new features are optional and maintain existing API compatibility
+* **Auto Theme Detection**: Automatically adapts to system light/dark mode when no theme is specified
+* **Comprehensive Theming**: Over 20 customizable properties for complete visual control
+
+### 📚 Enhanced Documentation
+* **Theme Usage Examples**: Added comprehensive theming examples and documentation
+* **Migration Guide**: Clear instructions for upgrading from previous versions
+* **API Reference**: Complete documentation for all new theming properties
+
 ## 1.0.0
 
 ### 🎉 Stable Release
