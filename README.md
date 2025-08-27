@@ -32,6 +32,10 @@
 - 📱 **Cross-Platform Support** - Works on both iOS and Android
 - ⚡ **Real-time Updates** - Instant kill switch activation/deactivation across all user devices
 - 🎯 **Instant Dialog Management** - Dialogs appear and disappear instantly without app restart
+- 🎨 **Rich Content Support** - HTML, images, videos, GIFs, and interactive forms in kill switch messages
+- 🔗 **Interactive Elements** - Clickable links, buttons, input fields, checkboxes, and dropdowns
+- 🖼️ **Media Integration** - Display images and videos directly in kill switch dialogs
+- 📝 **HTML Rendering** - Support for bold, italic, and formatted text in messages
 - 📱 **Example App Included** - Complete demo app showing proper implementation
 - 📚 **Comprehensive Documentation** - Full API documentation with Flutter-style comments
 

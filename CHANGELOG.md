@@ -1,3 +1,26 @@
+## 1.1.0
+
+### 🎨 Rich Content Support
+* **HTML Content**: Support for HTML tags (bold, italic, links) in kill switch messages
+* **Image Support**: Display images from URLs in kill switch dialogs
+* **Video & GIF Support**: Embed videos and animated GIFs in messages
+* **Interactive Forms**: Add buttons, input fields, checkboxes, and dropdowns to dialogs
+* **Rich Content Widgets**: New `RichContentWidget`, `MediaContentWidget`, and `InteractiveFormsWidget`
+* **Enhanced Theming**: Extended `KillSwitchTheme` with rich content styling properties
+* **Link Handling**: Automatic URL detection and clickable links with `url_launcher` integration
+* **Form Actions**: Callback system for handling interactive form submissions
+
+### 🔧 API Enhancements
+* **Rich Content Parameters**: Added `enableRichContent` and `onFormAction` to `KillSwitchDialog`
+* **Theme Extensions**: New styling properties for links, inputs, media, and interactive elements
+* **Content Detection**: Automatic detection of HTML, images, videos, and interactive content
+* **Backward Compatibility**: All rich content features are optional and maintain existing API
+
+### 📱 Example App Updates
+* **Rich Content Demo**: New demo screen showcasing all rich content features
+* **Interactive Examples**: Live examples of HTML, images, videos, and forms
+* **Theme Integration**: Rich content styling demonstration with different themes
+
 ## 1.0.3
 
 ### New Release -- Patch Fixes

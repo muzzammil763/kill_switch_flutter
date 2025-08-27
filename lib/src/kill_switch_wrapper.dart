@@ -67,6 +67,12 @@ class KillSwitchWrapper extends StatefulWidget {
   /// Optional custom button text for the kill switch dialog.
   final String? buttonText;
 
+  /// Optional callback for handling form actions in rich content.
+  final Function(String action, Map<String, dynamic> data)? onFormAction;
+
+  /// Whether to enable rich content support in dialogs.
+  final bool enableRichContent;
+
   /// Creates a kill switch wrapper.
   ///
   /// The [child] parameter is required and represents the widget to display
@@ -78,6 +84,8 @@ class KillSwitchWrapper extends StatefulWidget {
     this.title,
     this.message,
     this.buttonText,
+    this.onFormAction,
+    this.enableRichContent = true,
   });
 
   @override
@@ -128,6 +136,8 @@ class KillSwitchWrapperState extends State<KillSwitchWrapper> {
               title: widget.title,
               message: widget.message,
               buttonText: widget.buttonText,
+              onFormAction: widget.onFormAction,
+              enableRichContent: widget.enableRichContent,
             ),
           ),
         );

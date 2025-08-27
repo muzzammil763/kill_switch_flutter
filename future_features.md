@@ -32,9 +32,9 @@ This document outlines planned features and enhancements for the Kill Switch Flu
 - [x] Custom color schemes and typography
 
 ### Rich Content Support
-- [ ] Support HTML, images, and links in kill switch messages
-- [ ] Video and GIF support in messages
-- [ ] Interactive buttons and forms in dialogs
+- [x] Support HTML, images, and links in kill switch messages
+- [x] Video and GIF support in messages
+- [x] Interactive buttons and forms in dialogs
 
 ### Localization
 - [ ] Built-in support for multiple languages

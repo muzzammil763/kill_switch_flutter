@@ -59,6 +59,30 @@ class KillSwitchTheme {
   /// Border width for the dialog
   final double? borderWidth;
 
+  /// Link color for rich content
+  final Color? linkColor;
+
+  /// Rich content text style
+  final TextStyle? richContentTextStyle;
+
+  /// Form input border color
+  final Color? inputBorderColor;
+
+  /// Form input background color
+  final Color? inputBackgroundColor;
+
+  /// Form input text color
+  final Color? inputTextColor;
+
+  /// Media content border radius
+  final double? mediaBorderRadius;
+
+  /// Maximum height for images in rich content
+  final double? imageMaxHeight;
+
+  /// Maximum width for images in rich content
+  final double? imageMaxWidth;
+
   const KillSwitchTheme({
     this.backgroundColor,
     this.primaryColor,
@@ -79,6 +103,14 @@ class KillSwitchTheme {
     this.useDarkTheme,
     this.borderColor,
     this.borderWidth,
+    this.linkColor,
+    this.richContentTextStyle,
+    this.inputBorderColor,
+    this.inputBackgroundColor,
+    this.inputTextColor,
+    this.mediaBorderRadius,
+    this.imageMaxHeight,
+    this.imageMaxWidth,
   });
 
   /// Creates a light theme with default values
@@ -98,6 +130,13 @@ class KillSwitchTheme {
       iconSize: 40.0,
       dialogPadding: EdgeInsets.all(24.0),
       useDarkTheme: false,
+      linkColor: Colors.blue,
+      inputBorderColor: Color(0xFFE0E0E0),
+      inputBackgroundColor: Colors.white,
+      inputTextColor: Colors.black,
+      mediaBorderRadius: 8.0,
+      imageMaxHeight: 200.0,
+      imageMaxWidth: double.infinity,
       borderWidth: 0.0,
     );
   }
@@ -121,6 +160,13 @@ class KillSwitchTheme {
       useDarkTheme: true,
       borderColor: Color(0xFF404040),
       borderWidth: 1.0,
+      linkColor: Color(0xFF64B5F6),
+      inputBorderColor: Color(0xFF404040),
+      inputBackgroundColor: Color(0xFF2A2A2A),
+      inputTextColor: Colors.white,
+      mediaBorderRadius: 8.0,
+      imageMaxHeight: 200.0,
+      imageMaxWidth: double.infinity,
     );
   }
 
@@ -153,6 +199,14 @@ class KillSwitchTheme {
     bool? useDarkTheme,
     Color? borderColor,
     double? borderWidth,
+    Color? linkColor,
+    TextStyle? richContentTextStyle,
+    Color? inputBorderColor,
+    Color? inputBackgroundColor,
+    Color? inputTextColor,
+    double? mediaBorderRadius,
+    double? imageMaxHeight,
+    double? imageMaxWidth,
   }) {
     return KillSwitchTheme(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -175,6 +229,14 @@ class KillSwitchTheme {
       useDarkTheme: useDarkTheme ?? this.useDarkTheme,
       borderColor: borderColor ?? this.borderColor,
       borderWidth: borderWidth ?? this.borderWidth,
+      linkColor: linkColor ?? this.linkColor,
+      richContentTextStyle: richContentTextStyle ?? this.richContentTextStyle,
+      inputBorderColor: inputBorderColor ?? this.inputBorderColor,
+      inputBackgroundColor: inputBackgroundColor ?? this.inputBackgroundColor,
+      inputTextColor: inputTextColor ?? this.inputTextColor,
+      mediaBorderRadius: mediaBorderRadius ?? this.mediaBorderRadius,
+      imageMaxHeight: imageMaxHeight ?? this.imageMaxHeight,
+      imageMaxWidth: imageMaxWidth ?? this.imageMaxWidth,
     );
   }
 

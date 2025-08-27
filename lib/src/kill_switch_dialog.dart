@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'kill_switch_theme.dart';
+import 'widgets/rich_content_widget.dart';
+import 'widgets/media_content_widget.dart';
+import 'widgets/interactive_forms_widget.dart';
 
 class KillSwitchDialog extends StatelessWidget {
   final VoidCallback onClose;
@@ -7,6 +10,8 @@ class KillSwitchDialog extends StatelessWidget {
   final String? title;
   final String? message;
   final String? buttonText;
+  final Function(String action, Map<String, dynamic> data)? onFormAction;
+  final bool enableRichContent;
 
   const KillSwitchDialog({
     super.key,
@@ -15,6 +20,8 @@ class KillSwitchDialog extends StatelessWidget {
     this.title,
     this.message,
     this.buttonText,
+    this.onFormAction,
+    this.enableRichContent = true,
   });
 
   @override
@@ -70,12 +77,7 @@ class KillSwitchDialog extends StatelessWidget {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                message ??
-                    'Please Try Again Later Or Contact Support For Assistance.',
-                style: effectiveTheme.getEffectiveBodyTextStyle(),
-                textAlign: TextAlign.center,
-              ),
+              child: _buildMessageContent(effectiveTheme),
             ),
             const SizedBox(height: 32),
             SizedBox(
@@ -104,5 +106,52 @@ class KillSwitchDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildMessageContent(KillSwitchTheme effectiveTheme) {
+    final messageText = message ?? 'Please Try Again Later Or Contact Support For Assistance.';
+    
+    if (!enableRichContent) {
+      return Text(
+        messageText,
+        style: effectiveTheme.getEffectiveBodyTextStyle(),
+        textAlign: TextAlign.center,
+      );
+    }
+
+    // Check if message contains rich content patterns
+    final hasHtmlContent = messageText.contains(RegExp(r'<[^>]+>'));
+    final hasImageContent = messageText.contains(RegExp(r'\[img:([^\]]+)\]'));
+    final hasVideoContent = messageText.contains(RegExp(r'\[video:([^\]]+)\]')) || 
+                           messageText.contains(RegExp(r'\[gif:([^\]]+)\]'));
+    final hasInteractiveContent = messageText.contains(RegExp(r'\[button:([^\]]+)\]')) ||
+                                 messageText.contains(RegExp(r'\[input:([^\]]+)\]')) ||
+                                 messageText.contains(RegExp(r'\[checkbox:([^\]]+)\]')) ||
+                                 messageText.contains(RegExp(r'\[select:([^\]]+)\]'));
+
+    if (hasInteractiveContent) {
+      return InteractiveFormsWidget(
+        content: messageText,
+        onAction: onFormAction,
+        buttonColor: effectiveTheme.primaryColor,
+        textColor: effectiveTheme.bodyTextColor,
+      );
+    } else if (hasVideoContent) {
+       return MediaContentWidget(
+         content: messageText,
+       );
+     } else if (hasHtmlContent || hasImageContent) {
+       return RichContentWidget(
+         content: messageText,
+         defaultTextStyle: effectiveTheme.getEffectiveBodyTextStyle(),
+         linkColor: effectiveTheme.primaryColor,
+       );
+    } else {
+      return Text(
+        messageText,
+        style: effectiveTheme.getEffectiveBodyTextStyle(),
+        textAlign: TextAlign.center,
+      );
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kill_switch_example_mock/firebase_options.dart';
 import 'package:kill_switch_flutter/kill_switch.dart';
+import 'rich_content_demo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -196,8 +197,35 @@ class MainDemoScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RichContentDemo(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'Rich Content Demo',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
               const Text(
-                'Try different themes and enable the kill switch to see how the dialogs adapt to your chosen theme.',
+                'Try different themes and enable the kill switch to see how the dialogs adapt to your chosen theme. Use the Rich Content Demo to explore HTML, images, videos, and interactive forms.',
                 style: TextStyle(color: Colors.white60, fontSize: 14),
                 textAlign: TextAlign.center,
               ),
