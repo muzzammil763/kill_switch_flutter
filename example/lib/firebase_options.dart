@@ -38,13 +38,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCvPexpP0x6zuexQmAKy5hSN1GsE-R-LvQ',
-    authDomain: 'kill-switch-flutter.firebaseapp.com',
-    projectId: 'kill-switch-flutter',
-    storageBucket: 'kill-switch-flutter.firebasestorage.app',
-    messagingSenderId: '1016308586071',
-    appId: '1:1016308586071:web:5609b287938df588f53512',
-    measurementId: 'G-11ZCVMJ5VJ',
+    apiKey: 'AIProject DeletedKy5hSN1GsE-R-LvQ',
+    authDomain: 'kill-switProject Deletedseapp.com',
+    projectId: 'kill-sProject Deletedtter',
+    storageBucket: 'kill-swiProject Deletedp',
+    messagingSenderId: '10Project Deleted6071',
+    appId: '1:101630858Project Deleted38df588f53512',
+    measurementId: 'G-1Project DeletedVJ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
