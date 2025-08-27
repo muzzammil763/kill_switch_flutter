@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/kill_switch_flutter.svg)](https://pub.dev/packages/kill_switch_flutter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Ownership Available](https://img.shields.io/badge/Ownership-Available%20on%20Gumroad-FF6B6B)](https://deadbase.gumroad.com/l/muzzammil763)
+[![Ownership Available](https://img.shields.io/badge/Ownership-Available%20on%20Gumroad-FF6B6B)](https://muzzammil763.gumroad.com/l/muzzammil763?_gl=1*e9m3jk*_ga*MTA2NjQ2MjM0My4xNzU2Mjc1NDIz*_ga_6LJN6D94N6*czE3NTYyNzU0MjMkbzEkZzEkdDE3NTYyNzcwODIkajU4JGwwJGgw)
 
 <div align="center">
   <table>

@@ -1,3 +1,7 @@
+## 1.0.3
+
+### New Release -- Patch Fixes
+
 ## 1.0.2
 
 ### 🎉 Fixes & Improvements
