@@ -36,6 +36,11 @@
 - 🔗 **Interactive Elements** - Clickable links, buttons, input fields, checkboxes, and dropdowns
 - 🖼️ **Media Integration** - Display images and videos directly in kill switch dialogs
 - 📝 **HTML Rendering** - Support for bold, italic, and formatted text in messages
+- ✨ **Smooth Animations** - Customizable entrance/exit animations with multiple transition types
+- 🎭 **Animation Options** - Fade, scale, slide, bounce, and elastic animation effects
+- 🌊 **Loading Animations** - Professional loading indicators with spinner, pulse, bounce, and wave styles
+- 🎆 **Particle Effects** - Interactive particle systems for enhanced micro-interactions
+- ⚙️ **Performance Optimized** - Optional animations that can be disabled for better performance
 - 📱 **Example App Included** - Complete demo app showing proper implementation
 - 📚 **Comprehensive Documentation** - Full API documentation with Flutter-style comments
 
@@ -80,7 +85,7 @@ Or manually add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  kill_switch_flutter: ^1.0.3
+  kill_switch_flutter: ^1.1.1
 ```
 
 Then run:
@@ -398,6 +403,134 @@ final greenTheme = KillSwitchTheme(
   buttonBackgroundColor: Color(0xFF66BB6A),
   borderRadius: 12.0,
   shadowBlurRadius: 15.0,
+);
+```
+
+## ✨ Animation Options
+
+The package includes comprehensive animation support for smooth, professional user experiences.
+
+### Animation Properties
+
+Add animation properties to your `KillSwitchTheme`:
+
+```dart
+final animatedTheme = KillSwitchTheme(
+  // Basic theme properties...
+  backgroundColor: Colors.black87,
+  primaryColor: Colors.red,
+  
+  // Animation properties
+  enableAnimations: true,
+  animationDuration: Duration(milliseconds: 800),
+  entranceCurve: Curves.elasticOut,
+  exitCurve: Curves.easeInBack,
+  animationType: AnimationType.scale,
+  
+  // Loading animations
+  loadingAnimationDuration: Duration(milliseconds: 1200),
+  
+  // Particle effects
+  enableParticleEffects: true,
+  particleColor: Colors.red,
+  particleCount: 50,
+);
+
+KillSwitchWrapper(
+  theme: animatedTheme,
+  child: YourMainScreen(),
+)
+```
+
+### Animation Types
+
+| Type | Description |
+|------|-------------|
+| `AnimationType.fade` | Smooth fade in/out transition |
+| `AnimationType.scale` | Scale up/down with bounce effect |
+| `AnimationType.slide` | Slide from bottom with smooth motion |
+| `AnimationType.bounce` | Bouncy entrance with elastic feel |
+| `AnimationType.elastic` | Elastic spring animation |
+
+### Loading Animation Types
+
+```dart
+// Different loading animation styles
+LoadingAnimationWidget(
+  theme: theme,
+  animationType: LoadingAnimationType.spinner, // Default circular spinner
+  size: 60.0,
+)
+
+LoadingAnimationWidget(
+  theme: theme,
+  animationType: LoadingAnimationType.pulse, // Pulsing circle
+  size: 60.0,
+)
+
+LoadingAnimationWidget(
+  theme: theme,
+  animationType: LoadingAnimationType.bounce, // Bouncing dots
+  size: 60.0,
+)
+
+LoadingAnimationWidget(
+  theme: theme,
+  animationType: LoadingAnimationType.wave, // Wave animation
+  size: 60.0,
+)
+```
+
+### Particle Effects
+
+Add interactive particle effects to your dialogs:
+
+```dart
+ParticleEffectWidget(
+  theme: theme,
+  particleCount: 30,
+  particleColor: Colors.red.withValues(alpha:0.7),
+  animationDuration: Duration(seconds: 3),
+)
+```
+
+### Animation Properties Reference
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `enableAnimations` | `bool?` | `true` | Enable/disable all animations |
+| `animationDuration` | `Duration?` | `600ms` | Dialog animation duration |
+| `entranceCurve` | `Curve?` | `Curves.elasticOut` | Entrance animation curve |
+| `exitCurve` | `Curve?` | `Curves.easeInBack` | Exit animation curve |
+| `animationType` | `AnimationType?` | `scale` | Type of dialog animation |
+| `loadingAnimationDuration` | `Duration?` | `1200ms` | Loading animation duration |
+| `enableParticleEffects` | `bool?` | `false` | Enable particle effects |
+| `particleColor` | `Color?` | `Colors.white` | Particle color |
+| `particleCount` | `int?` | `20` | Number of particles |
+
+### Performance Considerations
+
+Animations can be disabled for better performance on older devices:
+
+```dart
+final performanceTheme = KillSwitchTheme(
+  enableAnimations: false, // Disables all animations
+  enableParticleEffects: false, // Disables particle effects
+  // ... other theme properties
+);
+```
+
+When animations are disabled, the package automatically falls back to the standard `KillSwitchDialog` for optimal performance.
+
+### Custom Animation Curves
+
+Use any Flutter curve for custom animation feel:
+
+```dart
+final customTheme = KillSwitchTheme(
+  entranceCurve: Curves.bounceOut,
+  exitCurve: Curves.fastOutSlowIn,
+  animationDuration: Duration(milliseconds: 1000),
 );
 ```
 

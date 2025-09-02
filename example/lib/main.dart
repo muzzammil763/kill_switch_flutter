@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kill_switch_example_mock/firebase_options.dart';
 import 'package:kill_switch_flutter/kill_switch.dart';
+
 import 'rich_content_demo.dart';
 
 void main() async {
@@ -118,9 +119,11 @@ class MainDemoScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white.withOpacity(0.2)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,7 +250,9 @@ class MainDemoScreen extends StatelessWidget {
           color: isSelected ? Colors.red : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? Colors.red : Colors.white.withOpacity(0.3),
+            color: isSelected
+                ? Colors.red
+                : Colors.white.withValues(alpha: 0.3),
           ),
         ),
         child: Text(

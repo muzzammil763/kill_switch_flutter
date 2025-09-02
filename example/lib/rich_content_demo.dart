@@ -3,7 +3,7 @@ import 'package:kill_switch_flutter/kill_switch.dart';
 
 /// Demo screen showcasing rich content features in kill switch dialogs
 class RichContentDemo extends StatefulWidget {
-  const RichContentDemo({Key? key}) : super(key: key);
+  const RichContentDemo({super.key});
 
   @override
   State<RichContentDemo> createState() => _RichContentDemoState();
@@ -100,14 +100,11 @@ For real-time updates, visit:
             const SizedBox(height: 8),
             const Text(
               'Explore different types of rich content in kill switch dialogs',
-              style: TextStyle(
-                color: Colors.white60,
-                fontSize: 16,
-              ),
+              style: TextStyle(color: Colors.white60, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
-            
+
             // Demo Type Selector
             const Text(
               'Select Demo Type:',
@@ -125,9 +122,9 @@ For real-time updates, visit:
                 return _buildDemoButton(demo);
               }).toList(),
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // Theme Selector
             const Text(
               'Select Theme:',
@@ -148,16 +145,16 @@ For real-time updates, visit:
                 _buildThemeButton('Green', _createCustomGreenTheme()),
               ],
             ),
-            
+
             const SizedBox(height: 40),
-            
+
             // Preview Message
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: const Color(0xFF2C2C2E),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white.withOpacity(0.1)),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,9 +181,9 @@ For real-time updates, visit:
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // Show Dialog Button
             ElevatedButton(
               onPressed: _showRichContentDialog,
@@ -201,15 +198,12 @@ For real-time updates, visit:
               ),
               child: const Text(
                 'Show Rich Content Dialog',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             const Text(
               'Note: This demo shows how rich content appears in kill switch dialogs. In a real app, these messages would be configured in your Firebase Firestore.',
               style: TextStyle(
@@ -235,7 +229,9 @@ For real-time updates, visit:
           color: isSelected ? Colors.red : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? Colors.red : Colors.white.withOpacity(0.3),
+            color: isSelected
+                ? Colors.red
+                : Colors.white.withValues(alpha: 0.3),
           ),
         ),
         child: Text(
@@ -260,7 +256,9 @@ For real-time updates, visit:
           color: isSelected ? Colors.blue : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? Colors.blue : Colors.white.withOpacity(0.3),
+            color: isSelected
+                ? Colors.blue
+                : Colors.white.withValues(alpha: 0.3),
           ),
         ),
         child: Text(
@@ -312,18 +310,26 @@ For real-time updates, visit:
           children: [
             Text(
               'Action: $action',
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
             const Text(
               'Data:',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 4),
-            ...data.entries.map((entry) => Text(
-              '${entry.key}: ${entry.value}',
-              style: const TextStyle(color: Colors.white70),
-            )),
+            ...data.entries.map(
+              (entry) => Text(
+                '${entry.key}: ${entry.value}',
+                style: const TextStyle(color: Colors.white70),
+              ),
+            ),
           ],
         ),
         actions: [

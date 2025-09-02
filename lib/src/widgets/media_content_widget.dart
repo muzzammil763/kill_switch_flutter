@@ -10,14 +10,14 @@ class MediaContentWidget extends StatelessWidget {
   final bool showControls;
 
   const MediaContentWidget({
-    Key? key,
+    super.key,
     required this.content,
     this.maxHeight,
     this.maxWidth,
     this.padding,
     this.autoPlay = false,
     this.showControls = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,59 +30,62 @@ class MediaContentWidget extends StatelessWidget {
   Widget _buildMediaContent(BuildContext context) {
     List<Widget> widgets = [];
     String remainingContent = content;
-    
+
     // Process video content
-    while (remainingContent.contains(RegExp(r'\[video\](.+?)\[/video\]', caseSensitive: false))) {
-      final videoMatch = RegExp(r'\[video\](.+?)\[/video\]', caseSensitive: false)
-          .firstMatch(remainingContent);
-      
+    while (remainingContent
+        .contains(RegExp(r'\[video\](.+?)\[/video\]', caseSensitive: false))) {
+      final videoMatch =
+          RegExp(r'\[video\](.+?)\[/video\]', caseSensitive: false)
+              .firstMatch(remainingContent);
+
       if (videoMatch == null) break;
-      
+
       // Add text before video
       final beforeVideo = remainingContent.substring(0, videoMatch.start);
       if (beforeVideo.trim().isNotEmpty) {
         widgets.add(_buildTextContent(beforeVideo, context));
       }
-      
+
       // Add video widget
       final videoUrl = videoMatch.group(1) ?? '';
       widgets.add(_buildVideoWidget(videoUrl));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(videoMatch.end);
     }
-    
+
     // Process GIF content
-    while (remainingContent.contains(RegExp(r'\[gif\](.+?)\[/gif\]', caseSensitive: false))) {
+    while (remainingContent
+        .contains(RegExp(r'\[gif\](.+?)\[/gif\]', caseSensitive: false))) {
       final gifMatch = RegExp(r'\[gif\](.+?)\[/gif\]', caseSensitive: false)
           .firstMatch(remainingContent);
-      
+
       if (gifMatch == null) break;
-      
+
       // Add text before GIF
       final beforeGif = remainingContent.substring(0, gifMatch.start);
       if (beforeGif.trim().isNotEmpty) {
         widgets.add(_buildTextContent(beforeGif, context));
       }
-      
+
       // Add GIF widget
       final gifUrl = gifMatch.group(1) ?? '';
       widgets.add(_buildGifWidget(gifUrl));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(gifMatch.end);
     }
-    
+
     // Add any remaining text
     if (remainingContent.trim().isNotEmpty) {
       widgets.add(_buildTextContent(remainingContent, context));
     }
-    
+
     // If no media content found, return original content as text
     if (widgets.isEmpty) {
       return _buildTextContent(content, context);
     }
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: widgets,
@@ -157,7 +160,7 @@ class MediaContentWidget extends StatelessWidget {
           },
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
-            return Container(
+            return SizedBox(
               height: 150,
               child: Center(
                 child: CircularProgressIndicator(
@@ -195,7 +198,7 @@ class _VideoPlayerWidget extends StatefulWidget {
 class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
   bool _isPlaying = false;
   bool _isLoading = true;
-  bool _hasError = false;
+  final bool _hasError = false;
 
   @override
   void initState() {
@@ -312,7 +315,7 @@ class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
               ),
             ),
           ),
-          
+
           // Play/Pause button
           if (widget.showControls)
             Positioned(

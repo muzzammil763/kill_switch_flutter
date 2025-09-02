@@ -10,13 +10,13 @@ class InteractiveFormsWidget extends StatefulWidget {
   final Color? textColor;
 
   const InteractiveFormsWidget({
-    Key? key,
+    super.key,
     required this.content,
     this.onAction,
     this.padding,
     this.buttonColor,
     this.textColor,
-  }) : super(key: key);
+  });
 
   @override
   State<InteractiveFormsWidget> createState() => _InteractiveFormsWidgetState();
@@ -45,106 +45,119 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
   Widget _buildInteractiveContent(BuildContext context) {
     List<Widget> widgets = [];
     String remainingContent = widget.content;
-    
+
     // Process buttons
-    while (remainingContent.contains(RegExp(r'\[button:([^\]]+)\]([^\[]+)\[/button\]', caseSensitive: false))) {
-      final buttonMatch = RegExp(r'\[button:([^\]]+)\]([^\[]+)\[/button\]', caseSensitive: false)
+    while (remainingContent.contains(RegExp(
+        r'\[button:([^\]]+)\]([^\[]+)\[/button\]',
+        caseSensitive: false))) {
+      final buttonMatch = RegExp(r'\[button:([^\]]+)\]([^\[]+)\[/button\]',
+              caseSensitive: false)
           .firstMatch(remainingContent);
-      
+
       if (buttonMatch == null) break;
-      
+
       // Add text before button
       final beforeButton = remainingContent.substring(0, buttonMatch.start);
       if (beforeButton.trim().isNotEmpty) {
         widgets.add(_buildTextContent(beforeButton, context));
       }
-      
+
       // Add button widget
       final action = buttonMatch.group(1) ?? '';
       final buttonText = buttonMatch.group(2) ?? '';
       widgets.add(_buildButton(action, buttonText, context));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(buttonMatch.end);
     }
-    
+
     // Process input fields
-    while (remainingContent.contains(RegExp(r'\[input:([^\]]+)\]([^\[]+)\[/input\]', caseSensitive: false))) {
-      final inputMatch = RegExp(r'\[input:([^\]]+)\]([^\[]+)\[/input\]', caseSensitive: false)
-          .firstMatch(remainingContent);
-      
+    while (remainingContent.contains(RegExp(
+        r'\[input:([^\]]+)\]([^\[]+)\[/input\]',
+        caseSensitive: false))) {
+      final inputMatch =
+          RegExp(r'\[input:([^\]]+)\]([^\[]+)\[/input\]', caseSensitive: false)
+              .firstMatch(remainingContent);
+
       if (inputMatch == null) break;
-      
+
       // Add text before input
       final beforeInput = remainingContent.substring(0, inputMatch.start);
       if (beforeInput.trim().isNotEmpty) {
         widgets.add(_buildTextContent(beforeInput, context));
       }
-      
+
       // Add input widget
       final fieldName = inputMatch.group(1) ?? '';
       final placeholder = inputMatch.group(2) ?? '';
       widgets.add(_buildInputField(fieldName, placeholder, context));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(inputMatch.end);
     }
-    
+
     // Process checkboxes
-    while (remainingContent.contains(RegExp(r'\[checkbox:([^\]]+)\]([^\[]+)\[/checkbox\]', caseSensitive: false))) {
-      final checkboxMatch = RegExp(r'\[checkbox:([^\]]+)\]([^\[]+)\[/checkbox\]', caseSensitive: false)
+    while (remainingContent.contains(RegExp(
+        r'\[checkbox:([^\]]+)\]([^\[]+)\[/checkbox\]',
+        caseSensitive: false))) {
+      final checkboxMatch = RegExp(
+              r'\[checkbox:([^\]]+)\]([^\[]+)\[/checkbox\]',
+              caseSensitive: false)
           .firstMatch(remainingContent);
-      
+
       if (checkboxMatch == null) break;
-      
+
       // Add text before checkbox
       final beforeCheckbox = remainingContent.substring(0, checkboxMatch.start);
       if (beforeCheckbox.trim().isNotEmpty) {
         widgets.add(_buildTextContent(beforeCheckbox, context));
       }
-      
+
       // Add checkbox widget
       final fieldName = checkboxMatch.group(1) ?? '';
       final label = checkboxMatch.group(2) ?? '';
       widgets.add(_buildCheckbox(fieldName, label, context));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(checkboxMatch.end);
     }
-    
+
     // Process dropdown/select fields
-    while (remainingContent.contains(RegExp(r'\[select:([^\]]+)\]([^\[]+)\[/select\]', caseSensitive: false))) {
-      final selectMatch = RegExp(r'\[select:([^\]]+)\]([^\[]+)\[/select\]', caseSensitive: false)
+    while (remainingContent.contains(RegExp(
+        r'\[select:([^\]]+)\]([^\[]+)\[/select\]',
+        caseSensitive: false))) {
+      final selectMatch = RegExp(r'\[select:([^\]]+)\]([^\[]+)\[/select\]',
+              caseSensitive: false)
           .firstMatch(remainingContent);
-      
+
       if (selectMatch == null) break;
-      
+
       // Add text before select
       final beforeSelect = remainingContent.substring(0, selectMatch.start);
       if (beforeSelect.trim().isNotEmpty) {
         widgets.add(_buildTextContent(beforeSelect, context));
       }
-      
+
       // Add select widget
       final fieldName = selectMatch.group(1) ?? '';
       final optionsString = selectMatch.group(2) ?? '';
       final options = optionsString.split(',').map((e) => e.trim()).toList();
       widgets.add(_buildDropdown(fieldName, options, context));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(selectMatch.end);
     }
-    
+
     // Add any remaining text
     if (remainingContent.trim().isNotEmpty) {
       widgets.add(_buildTextContent(remainingContent, context));
     }
-    
+
     // If no interactive content found, return original content as text
     if (widgets.isEmpty) {
       return _buildTextContent(widget.content, context);
     }
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: widgets,
@@ -157,8 +170,8 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: widget.textColor,
-        ),
+              color: widget.textColor,
+            ),
       ),
     );
   }
@@ -191,7 +204,8 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
     );
   }
 
-  Widget _buildInputField(String fieldName, String placeholder, BuildContext context) {
+  Widget _buildInputField(
+      String fieldName, String placeholder, BuildContext context) {
     if (!_controllers.containsKey(fieldName)) {
       _controllers[fieldName] = TextEditingController();
       _controllers[fieldName]!.addListener(() {
@@ -215,7 +229,8 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
               width: 2,
             ),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
         style: TextStyle(color: widget.textColor),
       ),
@@ -246,8 +261,8 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: widget.textColor,
-                ),
+                      color: widget.textColor,
+                    ),
               ),
             ),
           ),
@@ -256,11 +271,12 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
     );
   }
 
-  Widget _buildDropdown(String fieldName, List<String> options, BuildContext context) {
+  Widget _buildDropdown(
+      String fieldName, List<String> options, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: DropdownButtonFormField<String>(
-        value: _formData[fieldName],
+        initialValue: _formData[fieldName],
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -272,11 +288,12 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
               width: 2,
             ),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
         hint: Text(
           'Select an option',
-          style: TextStyle(color: widget.textColor?.withOpacity(0.6)),
+          style: TextStyle(color: widget.textColor?.withValues(alpha: 0.6)),
         ),
         items: options.map((String option) {
           return DropdownMenuItem<String>(
@@ -292,7 +309,7 @@ class _InteractiveFormsWidgetState extends State<InteractiveFormsWidget> {
             _formData[fieldName] = value;
           });
         },
-        dropdownColor: Theme.of(context).dialogBackgroundColor,
+        dropdownColor: DialogThemeData().backgroundColor,
       ),
     );
   }

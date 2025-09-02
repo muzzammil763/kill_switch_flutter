@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// A widget that renders rich content including HTML, images, and links
@@ -13,14 +12,14 @@ class RichContentWidget extends StatelessWidget {
   final EdgeInsets? padding;
 
   const RichContentWidget({
-    Key? key,
+    super.key,
     required this.content,
     this.defaultTextStyle,
     this.linkColor,
     this.imageMaxHeight,
     this.imageMaxWidth,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +34,17 @@ class RichContentWidget extends StatelessWidget {
     if (_isHtmlContent(content)) {
       return _buildHtmlContent(context);
     }
-    
+
     // Check if content contains image URLs
     if (_containsImageUrl(content)) {
       return _buildImageContent(context);
     }
-    
+
     // Check if content contains links
     if (_containsLinks(content)) {
       return _buildLinkContent(context);
     }
-    
+
     // Default text content
     return Text(
       content,
@@ -62,39 +61,42 @@ class RichContentWidget extends StatelessWidget {
   }
 
   bool _containsLinks(String text) {
-    return text.contains(RegExp(r'\[link\](.+?)\[/link\]', caseSensitive: false)) ||
-           text.contains(RegExp(r'https?://[^\s]+'));
+    return text.contains(
+            RegExp(r'\[link\](.+?)\[/link\]', caseSensitive: false)) ||
+        text.contains(RegExp(r'https?://[^\s]+'));
   }
 
   Widget _buildHtmlContent(BuildContext context) {
     // Simple HTML parsing for basic tags
     String processedContent = content;
     List<InlineSpan> spans = [];
-    
+
     // Process bold tags
     processedContent = processedContent.replaceAllMapped(
       RegExp(r'<b>(.*?)</b>', caseSensitive: false),
       (match) {
         spans.add(TextSpan(
           text: match.group(1) ?? '',
-          style: (defaultTextStyle ?? TextStyle()).copyWith(fontWeight: FontWeight.bold),
+          style: (defaultTextStyle ?? TextStyle())
+              .copyWith(fontWeight: FontWeight.bold),
         ));
         return '{{BOLD_${spans.length - 1}}}';
       },
     );
-    
+
     // Process italic tags
     processedContent = processedContent.replaceAllMapped(
       RegExp(r'<i>(.*?)</i>', caseSensitive: false),
       (match) {
         spans.add(TextSpan(
           text: match.group(1) ?? '',
-          style: (defaultTextStyle ?? TextStyle()).copyWith(fontStyle: FontStyle.italic),
+          style: (defaultTextStyle ?? TextStyle())
+              .copyWith(fontStyle: FontStyle.italic),
         ));
         return '{{ITALIC_${spans.length - 1}}}';
       },
     );
-    
+
     // Process link tags
     processedContent = processedContent.replaceAllMapped(
       RegExp(r'<a href="([^"]+)">(.*?)</a>', caseSensitive: false),
@@ -107,13 +109,12 @@ class RichContentWidget extends StatelessWidget {
             color: linkColor ?? Colors.blue,
             decoration: TextDecoration.underline,
           ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => _launchUrl(url),
+          recognizer: TapGestureRecognizer()..onTap = () => _launchUrl(url),
         ));
         return '{{LINK_${spans.length - 1}}}';
       },
     );
-    
+
     // Build the final rich text
     return _buildRichText(processedContent, spans, context);
   }
@@ -121,11 +122,11 @@ class RichContentWidget extends StatelessWidget {
   Widget _buildImageContent(BuildContext context) {
     List<Widget> widgets = [];
     String remainingContent = content;
-    
+
     while (remainingContent.isNotEmpty) {
       final imageMatch = RegExp(r'\[img\](.+?)\[/img\]', caseSensitive: false)
           .firstMatch(remainingContent);
-      
+
       if (imageMatch == null) {
         // Add remaining text
         if (remainingContent.trim().isNotEmpty) {
@@ -136,7 +137,7 @@ class RichContentWidget extends StatelessWidget {
         }
         break;
       }
-      
+
       // Add text before image
       final beforeImage = remainingContent.substring(0, imageMatch.start);
       if (beforeImage.trim().isNotEmpty) {
@@ -145,15 +146,15 @@ class RichContentWidget extends StatelessWidget {
           style: defaultTextStyle ?? Theme.of(context).textTheme.bodyMedium,
         ));
       }
-      
+
       // Add image
       final imageUrl = imageMatch.group(1) ?? '';
       widgets.add(_buildImage(imageUrl));
-      
+
       // Update remaining content
       remainingContent = remainingContent.substring(imageMatch.end);
     }
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: widgets,
@@ -163,7 +164,7 @@ class RichContentWidget extends StatelessWidget {
   Widget _buildLinkContent(BuildContext context) {
     List<InlineSpan> spans = [];
     String processedContent = content;
-    
+
     // Process custom link format [link]url[/link]
     processedContent = processedContent.replaceAllMapped(
       RegExp(r'\[link\](.+?)\[/link\]', caseSensitive: false),
@@ -175,13 +176,12 @@ class RichContentWidget extends StatelessWidget {
             color: linkColor ?? Colors.blue,
             decoration: TextDecoration.underline,
           ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => _launchUrl(url),
+          recognizer: TapGestureRecognizer()..onTap = () => _launchUrl(url),
         ));
         return '{{LINK_${spans.length - 1}}}';
       },
     );
-    
+
     // Process direct URLs
     processedContent = processedContent.replaceAllMapped(
       RegExp(r'https?://[^\s]+'),
@@ -193,25 +193,25 @@ class RichContentWidget extends StatelessWidget {
             color: linkColor ?? Colors.blue,
             decoration: TextDecoration.underline,
           ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => _launchUrl(url),
+          recognizer: TapGestureRecognizer()..onTap = () => _launchUrl(url),
         ));
         return '{{LINK_${spans.length - 1}}}';
       },
     );
-    
+
     return _buildRichText(processedContent, spans, context);
   }
 
-  Widget _buildRichText(String processedContent, List<InlineSpan> spans, BuildContext context) {
+  Widget _buildRichText(
+      String processedContent, List<InlineSpan> spans, BuildContext context) {
     List<InlineSpan> finalSpans = [];
     String remainingText = processedContent;
-    
+
     // Replace placeholders with actual spans
     for (int i = 0; i < spans.length; i++) {
       final placeholder = RegExp('{{(BOLD|ITALIC|LINK)_$i}}');
       final match = placeholder.firstMatch(remainingText);
-      
+
       if (match != null) {
         // Add text before placeholder
         final beforeText = remainingText.substring(0, match.start);
@@ -221,15 +221,15 @@ class RichContentWidget extends StatelessWidget {
             style: defaultTextStyle ?? Theme.of(context).textTheme.bodyMedium,
           ));
         }
-        
+
         // Add the span
         finalSpans.add(spans[i]);
-        
+
         // Update remaining text
         remainingText = remainingText.substring(match.end);
       }
     }
-    
+
     // Add any remaining text
     if (remainingText.isNotEmpty) {
       finalSpans.add(TextSpan(
@@ -237,7 +237,7 @@ class RichContentWidget extends StatelessWidget {
         style: defaultTextStyle ?? Theme.of(context).textTheme.bodyMedium,
       ));
     }
-    
+
     return RichText(
       text: TextSpan(children: finalSpans),
     );
@@ -273,7 +273,7 @@ class RichContentWidget extends StatelessWidget {
           },
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
-            return Container(
+            return SizedBox(
               height: 100,
               child: Center(
                 child: CircularProgressIndicator(

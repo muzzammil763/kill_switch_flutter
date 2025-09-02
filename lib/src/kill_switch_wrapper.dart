@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 
 import 'firebase_service.dart';
 import 'kill_switch_dialog.dart';
+import 'animated_kill_switch_dialog.dart';
 import 'kill_switch_theme.dart';
+import 'widgets/loading_animation_widget.dart';
 
 /// A wrapper widget that monitors the kill switch state and automatically
 /// displays a blocking dialog when the kill switch is activated.
@@ -123,24 +125,50 @@ class KillSwitchWrapperState extends State<KillSwitchWrapper> {
       });
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => PopScope(
-            canPop: false,
-            child: KillSwitchDialog(
-              onClose: () {
-                SystemNavigator.pop();
-              },
+        final effectiveTheme = widget.theme ?? KillSwitchTheme.auto(context);
+
+        if (effectiveTheme.enableAnimations ?? true) {
+          // Use animated dialog with custom route
+          Navigator.of(context).push(
+            AnimatedDialogRoute(
+              dialog: PopScope(
+                canPop: false,
+                child: AnimatedKillSwitchDialog(
+                  onClose: () {
+                    SystemNavigator.pop();
+                  },
+                  theme: widget.theme,
+                  title: widget.title,
+                  message: widget.message,
+                  buttonText: widget.buttonText,
+                  onFormAction: widget.onFormAction,
+                  enableRichContent: widget.enableRichContent,
+                ),
+              ),
               theme: widget.theme,
-              title: widget.title,
-              message: widget.message,
-              buttonText: widget.buttonText,
-              onFormAction: widget.onFormAction,
-              enableRichContent: widget.enableRichContent,
             ),
-          ),
-        );
+          );
+        } else {
+          // Use regular dialog for better performance when animations are disabled
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => PopScope(
+              canPop: false,
+              child: KillSwitchDialog(
+                onClose: () {
+                  SystemNavigator.pop();
+                },
+                theme: widget.theme,
+                title: widget.title,
+                message: widget.message,
+                buttonText: widget.buttonText,
+                onFormAction: widget.onFormAction,
+                enableRichContent: widget.enableRichContent,
+              ),
+            ),
+          );
+        }
       });
     }
   }
@@ -159,11 +187,15 @@ class KillSwitchWrapperState extends State<KillSwitchWrapper> {
   @override
   Widget build(BuildContext context) {
     if (_isKillSwitchActive && _isDialogShown) {
+      final effectiveTheme = widget.theme ?? KillSwitchTheme.auto(context);
+
       return Container(
-        color: Colors.black,
-        child: const Center(
-          child: CircularProgressIndicator(
-            color: Colors.white,
+        color: effectiveTheme.backgroundColor ?? Colors.black,
+        child: Center(
+          child: LoadingAnimationWidget(
+            theme: widget.theme,
+            animationType: LoadingAnimationType.spinner,
+            size: 60.0,
           ),
         ),
       );

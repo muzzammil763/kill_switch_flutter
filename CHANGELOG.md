@@ -1,3 +1,27 @@
+## 1.2.0
+
+### ✨ Animation Options
+* **Smooth Transitions**: Added `AnimatedKillSwitchDialog` with customizable entrance and exit animations
+* **Animation Types**: Support for fade, scale, slide, bounce, and elastic animation types
+* **Custom Curves**: Configurable animation curves and durations through `KillSwitchTheme`
+* **Loading Animations**: New `LoadingAnimationWidget` with spinner, pulse, bounce, and wave animations
+* **Particle Effects**: Interactive particle system with `ParticleEffectWidget` for micro-interactions
+* **Performance Optimized**: Optional animations that can be disabled for better performance
+* **Theme Integration**: Animation properties fully integrated into the theming system
+
+### 🔧 Animation API
+* **Animation Properties**: Added `animationDuration`, `entranceCurve`, `exitCurve` to `KillSwitchTheme`
+* **Animation Controls**: `enableAnimations`, `loadingAnimationDuration`, `enableParticleEffects` options
+* **Custom Routes**: New `AnimatedDialogRoute` for smooth dialog transitions
+* **Backward Compatibility**: Animations are enabled by default but can be disabled for legacy behavior
+* **Smart Fallbacks**: Automatically falls back to regular dialogs when animations are disabled
+
+### 🎨 Visual Enhancements
+* **Enhanced Loading States**: Replaced basic loading indicators with themed animation widgets
+* **Particle Customization**: Configurable particle colors, count, and animation patterns
+* **Animation Types Enum**: Type-safe animation selection with `AnimationType` enum
+* **Loading Types**: Multiple loading animation styles via `LoadingAnimationType` enum
+
 ## 1.1.0
 
 ### 🎨 Rich Content Support

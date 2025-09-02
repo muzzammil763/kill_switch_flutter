@@ -109,8 +109,9 @@ class KillSwitchDialog extends StatelessWidget {
   }
 
   Widget _buildMessageContent(KillSwitchTheme effectiveTheme) {
-    final messageText = message ?? 'Please Try Again Later Or Contact Support For Assistance.';
-    
+    final messageText =
+        message ?? 'Please Try Again Later Or Contact Support For Assistance.';
+
     if (!enableRichContent) {
       return Text(
         messageText,
@@ -122,12 +123,14 @@ class KillSwitchDialog extends StatelessWidget {
     // Check if message contains rich content patterns
     final hasHtmlContent = messageText.contains(RegExp(r'<[^>]+>'));
     final hasImageContent = messageText.contains(RegExp(r'\[img:([^\]]+)\]'));
-    final hasVideoContent = messageText.contains(RegExp(r'\[video:([^\]]+)\]')) || 
-                           messageText.contains(RegExp(r'\[gif:([^\]]+)\]'));
-    final hasInteractiveContent = messageText.contains(RegExp(r'\[button:([^\]]+)\]')) ||
-                                 messageText.contains(RegExp(r'\[input:([^\]]+)\]')) ||
-                                 messageText.contains(RegExp(r'\[checkbox:([^\]]+)\]')) ||
-                                 messageText.contains(RegExp(r'\[select:([^\]]+)\]'));
+    final hasVideoContent =
+        messageText.contains(RegExp(r'\[video:([^\]]+)\]')) ||
+            messageText.contains(RegExp(r'\[gif:([^\]]+)\]'));
+    final hasInteractiveContent =
+        messageText.contains(RegExp(r'\[button:([^\]]+)\]')) ||
+            messageText.contains(RegExp(r'\[input:([^\]]+)\]')) ||
+            messageText.contains(RegExp(r'\[checkbox:([^\]]+)\]')) ||
+            messageText.contains(RegExp(r'\[select:([^\]]+)\]'));
 
     if (hasInteractiveContent) {
       return InteractiveFormsWidget(
@@ -137,15 +140,15 @@ class KillSwitchDialog extends StatelessWidget {
         textColor: effectiveTheme.bodyTextColor,
       );
     } else if (hasVideoContent) {
-       return MediaContentWidget(
-         content: messageText,
-       );
-     } else if (hasHtmlContent || hasImageContent) {
-       return RichContentWidget(
-         content: messageText,
-         defaultTextStyle: effectiveTheme.getEffectiveBodyTextStyle(),
-         linkColor: effectiveTheme.primaryColor,
-       );
+      return MediaContentWidget(
+        content: messageText,
+      );
+    } else if (hasHtmlContent || hasImageContent) {
+      return RichContentWidget(
+        content: messageText,
+        defaultTextStyle: effectiveTheme.getEffectiveBodyTextStyle(),
+        linkColor: effectiveTheme.primaryColor,
+      );
     } else {
       return Text(
         messageText,

@@ -1,5 +1,32 @@
 import 'package:flutter/material.dart';
 
+/// Animation types for dialog transitions
+enum AnimationType {
+  /// Fade in/out animation
+  fade,
+
+  /// Scale animation from center
+  scale,
+
+  /// Slide from bottom
+  slideFromBottom,
+
+  /// Slide from top
+  slideFromTop,
+
+  /// Slide from left
+  slideFromLeft,
+
+  /// Slide from right
+  slideFromRight,
+
+  /// Bounce animation
+  bounce,
+
+  /// Elastic animation
+  elastic,
+}
+
 /// Configuration class for customizing the appearance of kill switch dialogs
 class KillSwitchTheme {
   /// Background color of the dialog container
@@ -83,6 +110,33 @@ class KillSwitchTheme {
   /// Maximum width for images in rich content
   final double? imageMaxWidth;
 
+  /// Animation duration for dialog transitions
+  final Duration? animationDuration;
+
+  /// Animation curve for dialog entrance
+  final Curve? entranceCurve;
+
+  /// Animation curve for dialog exit
+  final Curve? exitCurve;
+
+  /// Whether to enable smooth transitions
+  final bool? enableAnimations;
+
+  /// Loading animation duration
+  final Duration? loadingAnimationDuration;
+
+  /// Particle effect settings
+  final bool? enableParticleEffects;
+
+  /// Particle effect color
+  final Color? particleColor;
+
+  /// Number of particles for effects
+  final int? particleCount;
+
+  /// Animation type for dialog transitions
+  final AnimationType? animationType;
+
   const KillSwitchTheme({
     this.backgroundColor,
     this.primaryColor,
@@ -111,6 +165,15 @@ class KillSwitchTheme {
     this.mediaBorderRadius,
     this.imageMaxHeight,
     this.imageMaxWidth,
+    this.animationDuration,
+    this.entranceCurve,
+    this.exitCurve,
+    this.enableAnimations,
+    this.loadingAnimationDuration,
+    this.enableParticleEffects,
+    this.particleColor,
+    this.particleCount,
+    this.animationType,
   });
 
   /// Creates a light theme with default values
@@ -138,6 +201,15 @@ class KillSwitchTheme {
       imageMaxHeight: 200.0,
       imageMaxWidth: double.infinity,
       borderWidth: 0.0,
+      animationDuration: Duration(milliseconds: 300),
+      entranceCurve: Curves.easeOutCubic,
+      exitCurve: Curves.easeInCubic,
+      enableAnimations: true,
+      loadingAnimationDuration: Duration(milliseconds: 1500),
+      enableParticleEffects: false,
+      particleColor: Colors.blue,
+      particleCount: 20,
+      animationType: AnimationType.scale,
     );
   }
 
@@ -167,6 +239,15 @@ class KillSwitchTheme {
       mediaBorderRadius: 8.0,
       imageMaxHeight: 200.0,
       imageMaxWidth: double.infinity,
+      animationDuration: Duration(milliseconds: 300),
+      entranceCurve: Curves.easeOutCubic,
+      exitCurve: Curves.easeInCubic,
+      enableAnimations: true,
+      loadingAnimationDuration: Duration(milliseconds: 1500),
+      enableParticleEffects: false,
+      particleColor: Color(0xFF64B5F6),
+      particleCount: 20,
+      animationType: AnimationType.scale,
     );
   }
 
@@ -207,6 +288,15 @@ class KillSwitchTheme {
     double? mediaBorderRadius,
     double? imageMaxHeight,
     double? imageMaxWidth,
+    Duration? animationDuration,
+    Curve? entranceCurve,
+    Curve? exitCurve,
+    bool? enableAnimations,
+    Duration? loadingAnimationDuration,
+    bool? enableParticleEffects,
+    Color? particleColor,
+    int? particleCount,
+    AnimationType? animationType,
   }) {
     return KillSwitchTheme(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -237,6 +327,17 @@ class KillSwitchTheme {
       mediaBorderRadius: mediaBorderRadius ?? this.mediaBorderRadius,
       imageMaxHeight: imageMaxHeight ?? this.imageMaxHeight,
       imageMaxWidth: imageMaxWidth ?? this.imageMaxWidth,
+      animationDuration: animationDuration ?? this.animationDuration,
+      entranceCurve: entranceCurve ?? this.entranceCurve,
+      exitCurve: exitCurve ?? this.exitCurve,
+      enableAnimations: enableAnimations ?? this.enableAnimations,
+      loadingAnimationDuration:
+          loadingAnimationDuration ?? this.loadingAnimationDuration,
+      enableParticleEffects:
+          enableParticleEffects ?? this.enableParticleEffects,
+      particleColor: particleColor ?? this.particleColor,
+      particleCount: particleCount ?? this.particleCount,
+      animationType: animationType ?? this.animationType,
     );
   }
 
